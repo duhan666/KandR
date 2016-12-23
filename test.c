@@ -2,9 +2,8 @@
 #include <string.h>
 
 void main(){
-    char c;
-    while((c=getchar())!=EOF){
-        printf("%c",c);
-    }
-    printf("EOF is finally done!");
+
+   char c;
+   c = getchar();
+   printf("%c\n",c);
 }
