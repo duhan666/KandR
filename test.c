@@ -2,8 +2,10 @@
 #include <string.h>
 
 void main(){
-
-   char c;
-   c = getchar();
-   printf("%c\n",c);
+    char s[100];
+    int i = 0;
+    while((s[i++] = getchar())!='\n')
+        ;
+        s[i] = '\0';
+    printf("%s\n",s);
 }
