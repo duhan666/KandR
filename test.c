@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include <string.h>
 
-void main(){
-    char s[100];
-    int i = 0;
-    while((s[i++] = getchar())!='\n')
-        ;
-        s[i] = '\0';
-    printf("%s\n",s);
+int isnum(char p){
+    if(p>='0'&&p<='9')
+        return 1;
+    else
+        return 0;
+}
+
+int getop(){
+    int c;
+    while( (c = getchar()) != EOF ){
+        if
+    }
+
+
 }

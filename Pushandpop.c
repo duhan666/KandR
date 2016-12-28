@@ -60,7 +60,7 @@ void push(float p){
 
 double pop(){
     if(sp<0){
-        printf("error,the stack is empty,cannot pop");
+        printf("error,the stack is empty,cannot pop!");
     }
     else{
         return stacka[--sp];
@@ -68,31 +68,59 @@ double pop(){
 }
 
 int getch(){
-    return (bufp>0)? buf[--sp]:getchar();
+    return (bufp>0)? buf[--bufp]:getchar();
 }
 
 void ungetch(int c){
     if(bufp>bufsize)
         printf("the buffer is full!");
     else
-        buf[sp++]=c;
-
+        buf[bufp++]=c;
 }
 
 int getop(char s[]){
     int i = 0;
     int c = 0;
-    while( isnum(c=getchar())&&(c!='\n') ){
+
+    while( (c=getch()) == ' '|| c == '\t' )
+        ;
+
+    s[0] = c;
+    s[1] = '\0';
+
+    if( !isnum(c) && c!='.' )
+        return c;
+
+    i = 1;
+
+    while( isnum(c=getch()) ){
             s[i++] = c;
     }
+    ungetch(c);
     s[i] = '\0';
-    return c;
+    return NUM;
 }
 
 
 void main(){
     int type;
     char s[MAXOP];
-    while((type=getop(s))!='\n');
-    printf("%s\n",s);
+    int op ;
+
+
+  while( (type=getop(s)) != EOF ){
+        switch(type){
+            case NUM:
+                push(strtonum(s));
+                break;
+            case '+':
+                push(pop()+pop());
+                break;
+            case '\n':
+                printf("%.8g",pop());
+                break;
+        }
+    }
+
+    return;
 }
