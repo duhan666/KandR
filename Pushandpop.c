@@ -17,6 +17,13 @@ int isnum(char p){
         return 0;
 }
 
+int isymbol(char p){
+    if(p=='+'||p=='-'||p=='*'||p=='/')
+        return 1;
+    else
+        return 0;
+}
+
 float strtonum(char *str){
     int i = 0;
     float val = 0.0;
@@ -78,6 +85,7 @@ void ungetch(int c){
         buf[bufp++]=c;
 }
 
+/*
 int getop(char s[]){
     int i = 0;
     int c = 0;
@@ -100,7 +108,29 @@ int getop(char s[]){
     s[i] = '\0';
     return NUM;
 }
+*/
 
+int getop(char s[]){
+    int c;
+    int i=0;
+    while( (s[0]=c=getchar())==' '|| c=='\t' );
+
+    i=1;
+    while( (c = getchar()) != EOF ){
+        if(isnum(c)){
+            s[i++]=c;
+            s[i]='\0';
+        }
+        else if(isymbol(c)){
+            s[i++]=c;
+            s[i]='\0';
+            return c;
+        }
+        else
+            return c;
+    }
+    return NUM;
+}
 
 void main(){
     int type;
