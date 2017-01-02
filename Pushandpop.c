@@ -85,7 +85,7 @@ void ungetch(int c){
         buf[bufp++]=c;
 }
 
-/*
+
 int getop(char s[]){
     int i = 0;
     int c = 0;
@@ -108,8 +108,8 @@ int getop(char s[]){
     s[i] = '\0';
     return NUM;
 }
-*/
 
+/*
 int getop(char s[]){
     int c;
     int i=0;
@@ -130,7 +130,7 @@ int getop(char s[]){
             return c;
     }
     return NUM;
-}
+}*/
 
 void main(){
     int type;
