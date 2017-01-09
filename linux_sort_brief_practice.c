@@ -22,19 +22,27 @@ void mystrcpy(char *p, char *q){
     *p = '\0';
 }
 
-void readlines(char *s[]){
+int readlines(char *s[]){
     char p[LEN];
     int ctr;
+    int c=0;
     while( ctr=getline(p) ){
         char *ptr = (char *)malloc(strlen(p));
         mystrcpy(ptr,p);
         *s++ = ptr;
+        c++;
     }
+    return c;
 }
 
+
+
 void main(){
-    char s[LEN];
-    int c = getline(s);
-    printf("%d\n",c);
+    char *s[LEN];
+    int c;
+    c = readlines(s);
+    int i;
+    for(i=0;i<c;i++)
+        printf("%s\n",s[i]);
 }
 
