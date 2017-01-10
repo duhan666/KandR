@@ -6,5 +6,9 @@
  }
 
 void main(){
-    test();
-}
+    char *s  = "hello,world!";
+    char t[] = "hello,world!";
+
+    printf("%d\n",sizeof(s));
+    printf("%d\n",sizeof(t));
+ }
