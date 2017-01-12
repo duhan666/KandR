@@ -11,7 +11,10 @@ struct key{
     char *word;
     int count;
 }keytab[]={
-    {"auto",0},{"break",0},{"case",0},{"void",0},
+    "auto",0,
+    "break",0,
+    "case",0,
+    "void",0
 };
 
 int getch(){
@@ -63,42 +66,41 @@ int getword(char *w){
 }
 
 int strcmp(char *p,char *q){
-    while( *p!='\0' && *q!='\0' ){
-        if(*p == *q){
-            p++,q++;
-        }
-        else if(*p > *q){
-            return -1;
-        }
-        else
-            return 1;
+    while(*p == *q){
+        if(*p == '\0')
+            return 0;
+    p++,q++;
     }
-    return 0;
+    return *q - *p;
+
 }
-/*
-int bisearch(char tar[],struct key keytab, int n){
+
+int bisearch(char tar[],struct key keytab[], int n){
     int low,mid,high;
     low = 0;
     high = n-1;
     while(low<=high){
         mid = (low+high)/2;
-        if(v[mid]>tar)
+        if(strcmp(keytab[mid].word,tar)<0)
             high = mid - 1 ;
-        else if(v[mid]<tar)
+        else if(strcmp(keytab[mid].word,tar)>0)
             low = mid + 1;
         else
             return mid;
     }
     return -1;
 }
-*/
+
 
 
 main(){
-/*  int v[] = {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31};
-    int n = sizeof(v)/sizeof(v[0]);
-    int c = bisearch(21,v,n);
-    printf("%d\n",c); */
-
+    char w[WORDLEN];
+    int n;
+    while(getword(w)!=EOF)
+        if((n = bisearch(w,keytab,4))>=0)
+            keytab[n].count++;
+    int i ;
+    for(i=0;i<4;i++)
+        printf("%s\t%d\n",keytab[i].word,keytab[i].count);
 }
 
