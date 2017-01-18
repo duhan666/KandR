@@ -29,11 +29,14 @@ int isalpha(int p){
         return 0;
 }
 
-int strcmp(char*p,char*s){
-    while(*p++ == *s++){
-        ;
+int myscmp(char*p,char*s){
+    while(*p == *s){
+        if(*p=='\0')
+            return 0;
+    //printf("%c\t%c\n",*s,*p);
+        *p++,*s++;
     }
-
+    return *s - *p;
 }
 
 struct tnode{
@@ -53,19 +56,43 @@ char* wordspace(char *s){
 }
 
 int getword(char *p){
-    int c,n=0;
-    while( (c = getch()) !=' '){
-        *p++ = c;
-        n++;
-    }
-    *p='\0';
-    return n;
+    int c;
+    c=getch();
+    if(c == EOF)
+        return c;
+    ungetch(c);
+    while(!isalpha(c=getch()))
+        ;
+    *p = c;
+    while((c=getch())!=' ')
+        *++p = c;
+    *++p = '\0';
+    return p[0];
 }
 
 
+char * strmem(char * w){
+    char *p = (char *)malloc(strlen(w)+1);
 
-void addtree(struct tnode *tree){
+}
 
+
+void addtree(struct tnode *tree,char *w){
+    if(tree == null){
+        tree = (struct tnode *)malloc(sizeof(struct tnode));
+        tree->word = (char *)malloc(strlen(w)+1);??
+        tree->left = tree->right = NULL;
+        tree->count = 1;
+    }
+    else if(myscmp(tree.word,w)>0){
+        addtree(tree.left,w);
+    }
+    else if(myscmp(tree.word,w)<0){
+        addtree(tree.right,w);
+    }
+    else {
+        tree.count++;
+    }
 }
 
 
@@ -73,6 +100,7 @@ void main(){
     char s[WORDLEN];
     getword(s);
     printf("%s\n",s);
+
 }
 
 
