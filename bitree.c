@@ -64,42 +64,59 @@ int getword(char *p){
     while(!isalpha(c=getch()))
         ;
     *p = c;
-    while((c=getch())!=' ')
+    while(isalpha(c=getch()))
         *++p = c;
     *++p = '\0';
     return p[0];
 }
 
 
-char * strmem(char * w){
+char *strmd(char * w){
     char *p = (char *)malloc(strlen(w)+1);
-
+    strcpy(p,w);
+    return p;
 }
 
 
-void addtree(struct tnode *tree,char *w){
-    if(tree == null){
+struct tnode* addtree(struct tnode *tree,char *w){
+    if(tree == NULL){
         tree = (struct tnode *)malloc(sizeof(struct tnode));
-        tree->word = (char *)malloc(strlen(w)+1);??
+        tree->word = strmd(w);
         tree->left = tree->right = NULL;
         tree->count = 1;
     }
-    else if(myscmp(tree.word,w)>0){
-        addtree(tree.left,w);
+    else if(myscmp(tree->word,w)>0){
+        tree->left = addtree(tree->left,w);
     }
-    else if(myscmp(tree.word,w)<0){
-        addtree(tree.right,w);
+    else if(myscmp(tree->word,w)<0){
+        tree->right = addtree(tree->right,w);
     }
     else {
-        tree.count++;
+        tree->count++;
+    }
+    return tree;
+}
+
+void printree(struct tnode *tree){
+    if(tree!=NULL){
+        printree(tree->left);
+        printf("%s\t%d\n",tree->word,tree->count);
+        printree(tree->right);
+
     }
 }
 
 
 void main(){
-    char s[WORDLEN];
-    getword(s);
-    printf("%s\n",s);
+    char word[WORDLEN];
+    struct tnode *root;
+    root = NULL;
+
+    while ( getword(word)!=EOF ){
+        root = addtree(root,word);
+    }
+
+    printree(root);
 
 }
 
