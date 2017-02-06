@@ -85,10 +85,10 @@ struct tnode* addtree(struct tnode *tree,char *w){
         tree->left = tree->right = NULL;
         tree->count = 1;
     }
-    else if(myscmp(tree->word,w)>0){
+    else if(myscmp(w,tree->word)>0){
         tree->left = addtree(tree->left,w);
     }
-    else if(myscmp(tree->word,w)<0){
+    else if(myscmp(w,tree->word)<0){
         tree->right = addtree(tree->right,w);
     }
     else {
@@ -103,9 +103,9 @@ void printree(struct tnode *tree){
         printf("%s\t%d\n",tree->word,tree->count);
         printree(tree->right);
 
+
     }
 }
-
 
 void main(){
     char word[WORDLEN];
@@ -117,7 +117,8 @@ void main(){
     }
 
     printree(root);
-
+    printf("%s\n",root->word);
+    printf("%s\n",root->left->word);
 }
 
 
